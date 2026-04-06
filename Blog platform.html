@@ -1,0 +1,118 @@
+@@ -0,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Platform</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            margin-top: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input, textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .post {
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .post h3 {
+            margin: 0;
+        }
+
+        .delete-btn {
+            background: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 Blog Platform</h2>
+
+    <input type="text" id="title" placeholder="Enter Blog Title">
+    <br>
+    <textarea id="content" placeholder="Write your blog..."></textarea>
+    <br>
+    <button onclick="addPost()">Publish</button>
+
+    <div id="posts"></div>
+</div>
+
+<script>
+    let posts = [];
+
+    function addPost() {
+        let title = document.getElementById("title").value;
+        let content = document.getElementById("content").value;
+
+        if (title === "" || content === "") {
+            alert("Please fill all fields!");
+            return;
+        }
+
+        let post = { title, content };
+        posts.push(post);
+
+        displayPosts();
+
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+    }
+
+    function displayPosts() {
+        let postContainer = document.getElementById("posts");
+        postContainer.innerHTML = "";
+
+        posts.forEach((post, index) => {
+            let postHTML = `
+                <div class="post">
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <button class="delete-btn" onclick="deletePost(${index})">Delete</button>
+                </div>
+            `;
+            postContainer.innerHTML += postHTML;
+        });
+    }
+
+    function deletePost(index) {
+        posts.splice(index, 1);
+        displayPosts();
+    }
+</script>
+
+</body>
+</html>
